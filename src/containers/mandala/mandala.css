@@ -246,8 +246,8 @@ height: 60px;
 
 }
 img {
-     width: 700px;
-    height: 700px;
+     /* width: 700px;
+    height: 700px; */
     /* position: ;
     right: 50%;
     top: 50%;
@@ -255,3 +255,28 @@ img {
 
 
 }
+
+.form__input1 {
+
+    font-family: var(--font-family);
+    /* font-weight: 200px; */
+    color: rgb(0, 0, 0);
+    font-size: 1rem;
+      margin: auto;
+    padding: 1rem 1rem;
+    border-radius: 0.2rem;
+    background-color: #AE67FA;
+    border: none;
+    width: 50%;
+    display: block;
+  border-bottom: 0.3rem solid transparent; 
+    transition: all 0.3s;
+}
+
+.form__input1:placeholder-shown + .form__label1 {
+    opacity: 0;
+    color: rgb(245, 245, 245);
+    visibility: hidden;
+    -webkit-transform: translateY(4rem);
+    transform: translateY(4rem);
+  }

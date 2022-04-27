@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect,useState} from 'react';
 import './mandala.css';
 import Settings from '../../components/setting/Setting';
 import TextField from '@mui/material/TextField';
@@ -10,24 +10,37 @@ import hadeer from '../../assets/hadeer_1.png';
 
 const Mandala = () => {
 
+  const[img, setImg] = useState('')
+  const[show, setShow] = useState(false)
+  const[fname, setFname] = useState('')
 
+  function apiHandler(e) {
+    setFname(e.target.value)
+    fetch(`http://localhost:4000/api/${fname}?width=${formik.values.width}&height=${formik.values.hight}&format=${formik.values.format}&greyScale=${formik.values.greyscale}&tint=${formik.values.tint.substring(1)}`).then((res)=>res.json()).then((data)=>{
+
+    setImg(data)
+    setShow(true)
+
+  
+  })}
 
   const formik = useFormik({
 
-    
-
-
     initialValues:{
-
       width: '500',
       hight:'500',
       format:'png',
       greyscale:false,
       tint:'#ff00ff',
-      name:''
     },
      onSubmit: values => {
-       alert(JSON.stringify(values, null, 2));
+      fetch(`http://localhost:4000/api/${fname}?width=${formik.values.width}&height=${formik.values.hight}&format=${formik.values.format}&greyScale=${formik.values.greyscale}&tint=${formik.values.tint.substring(1)}`).then((res)=>res.json()).then((data)=>{
+
+    setImg(data)
+    setShow(true)
+
+  
+  })
      },
 
   });
@@ -50,11 +63,11 @@ const Mandala = () => {
         <div className='canvas-cont'>
         <div className='canvas'> 
         
-        {/* <img src="localhost:4000/api" /> */}
-          <img src={hadeer} alt="" />        
+          {show && <img src={img} alt="mandala" /> }
+          {!show && <img src={hadeer} alt="Default-mandala" />}        
         </div>
         {/* <TextField className='canvas-cont__input' id="filled-basic" label="Name" variant="filled"  color='secondary'/> */}
-        <input type="width" onChange={formik.handleChange}  value={formik.values.name} name='name' class="form__input" id="name" placeholder="Name" />
+        <input type="width" onChange={apiHandler}  value={fname} name='name' class="form__input1" id="name" placeholder="Name" />
            <label for="Same" class="form__label">Name</label>
         </div>
           
